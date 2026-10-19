@@ -7,10 +7,10 @@ interface postProps {
 }
 export const Post = ({ author, content }: postProps): JSX.Element => {
   return (
-    <div className={styles.post}>
+    <li className={styles.post}>
       <p className={styles.author}>{author}</p>
       <p className={styles.content}>{content}</p>
-    </div>
+    </li>
   );
 };
 export default Post;

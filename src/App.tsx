@@ -1,10 +1,15 @@
-import Post from "./components/Post";
+import Post from "./components/Post/Post";
+import { PostList } from "./components/PostList/PostList";
 export const App = () => {
   return (
-    <div>
-      <Post author="Mohamed Elghitany" content="React Developer" />
-      <Post author="MG" content="i love react" />
-    </div>
+    <main>
+      <PostList
+        posts={[
+          <Post author="Mohamed Elghitany" content="React Developer" />,
+          <Post author="MG" content="i love react" />,
+        ]}
+      />
+    </main>
   );
 };
 export default App;
