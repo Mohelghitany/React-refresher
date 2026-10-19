@@ -1,10 +1,13 @@
-const names = ["mohamed", "elghitany"];
-export const Post = () => {
-  const chosenName = Math.random() > 0.5 ? names[0] : names[1];
+import type { JSX } from "react";
+interface postProps {
+  author: string;
+  content: string;
+}
+export const Post = ({ author, content }: postProps): JSX.Element => {
   return (
     <div>
-      <p>{chosenName}</p>
-      <p>React Developer</p>
+      <p>{author}</p>
+      <p>{content}</p>
     </div>
   );
 };
