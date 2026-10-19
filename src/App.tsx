@@ -1,4 +1,9 @@
+import Post from "./components/Post";
 export const App = () => {
-  return <h1>Hello World</h1>;
+  return (
+    <div>
+      <Post />
+    </div>
+  );
 };
 export default App;
