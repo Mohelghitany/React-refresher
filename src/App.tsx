@@ -3,6 +3,9 @@ export const App = () => {
   return (
     <div>
       <Post />
+      <Post />
+      <Post />
+      <Post />
     </div>
   );
 };
