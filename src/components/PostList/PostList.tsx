@@ -10,7 +10,7 @@ export const PostList = ({ posts }: postListProps): JSX.Element => {
   return (
     <ul className={styles.postList}>
       {posts.map((_, index) => {
-        return posts[index];
+        return <li>{posts[index]}</li>;
       })}
     </ul>
   );
