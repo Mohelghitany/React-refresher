@@ -31,8 +31,6 @@ export const NewPost = ({ onClose, onSubmit }: newPostProps): JSX.Element => {
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit({ author, content });
-    setAuthor("Your name");
-    setContent("Your post content.");
   };
 
   return (
