@@ -1,22 +1,42 @@
 import type { JSX } from "react/jsx-runtime";
-import type { ChangeEvent } from "react";
+import {
+  type ChangeEvent,
+  type MouseEvent,
+  type SubmitEvent,
+  useState,
+} from "react";
+import type { postProps } from "../Post/Post";
 import styles from "./NewPost.module.css";
 
 interface newPostProps {
-  onAuthorChange: (
-    event: ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => void;
-  onContentChange: (
-    event: ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>,
-  ) => void;
+  onClose: (event: MouseEvent<HTMLButtonElement>) => void;
+  onSubmit: (post: postProps) => void;
 }
 
-export const NewPost = ({
-  onAuthorChange,
-  onContentChange,
-}: newPostProps): JSX.Element => {
+export const NewPost = ({ onClose, onSubmit }: newPostProps): JSX.Element => {
+  const [author, setAuthor] = useState<string>("Your name");
+  const [content, setContent] = useState<string>("Your post content.");
+
+  const onAuthorChange = (
+    event: ChangeEvent<HTMLInputElement, HTMLInputElement>,
+  ) => {
+    setAuthor(event.target.value);
+  };
+  const onContentChange = (
+    event: ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>,
+  ) => {
+    setContent(event.target.value);
+  };
+
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSubmit({ author, content });
+    setAuthor("Your name");
+    setContent("Your post content.");
+  };
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <label htmlFor="author">Author</label>
       <input
         type="text"
@@ -34,6 +54,13 @@ export const NewPost = ({
         placeholder="Type something here"
         onChange={onContentChange}
       />
+
+      <p className={styles.actions}>
+        <button type="button" onClick={onClose}>
+          Cancel
+        </button>
+        <button type="submit">Submit</button>
+      </p>
     </form>
   );
 };
