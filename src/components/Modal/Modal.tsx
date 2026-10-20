@@ -1,10 +1,10 @@
-import type { JSX, ReactElement } from "react";
+import type { JSX, ReactElement, MouseEvent } from "react";
 
 import style from "./Modal.module.css";
 
 interface ModalProps {
   children: ReactElement;
-  onClose: () => void;
+  onClose: (event: MouseEvent<HTMLDivElement>) => void;
 }
 export const Modal = ({ children, onClose }: ModalProps): JSX.Element => {
   return (

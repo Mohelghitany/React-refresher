@@ -1,33 +1,24 @@
-import { useState } from "react";
-import type { ChangeEvent } from "react";
+import { useState, type MouseEvent } from "react";
+import type { postProps } from "./components/Post/Post";
 
 import { NewPost } from "./components/NewPost/NewPost";
-import Post from "./components/Post/Post";
 import { PostList } from "./components/PostList/PostList";
 import { Header } from "./components/Header/Header";
 import { Modal } from "./components/Modal/Modal";
 
 export const App = () => {
-  const [author, setAuthor] = useState<string>("Your name");
-  const [content, setContent] = useState<string>("Your post content.");
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const onAuthorChange = (
-    event: ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => {
-    setAuthor(event.target.value);
-  };
-  const onContentChange = (
-    event: ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>,
-  ) => {
-    setContent(event.target.value);
-  };
-
+  const [posts, setPosts] = useState<Array<postProps> | []>([]);
   const modalVisibilty = () => {
-    setIsOpen(true);
+    setIsOpen((prev) => !prev);
   };
-  const onClose = () => {
-    setIsOpen(false);
+  const onClose = (event: MouseEvent<HTMLElement>): void => {
+    event.preventDefault();
+    setIsOpen((prev) => !prev);
+  };
+  const onSubmit = (post: postProps) => {
+    setPosts((posts) => [post, ...posts]);
+    modalVisibilty();
   };
 
   return (
@@ -36,18 +27,21 @@ export const App = () => {
       <main>
         {isOpen && (
           <Modal onClose={onClose}>
-            <NewPost
-              onAuthorChange={onAuthorChange}
-              onContentChange={onContentChange}
-            />
+            <NewPost onClose={onClose} onSubmit={onSubmit} />
           </Modal>
         )}
-        <PostList
-          posts={[
-            <Post author={author} content={content} />,
-            <Post author="Mohamed Elghitany" content="React Developer" />,
-          ]}
-        />
+        {posts.length > 0 ? (
+          <PostList posts={posts} />
+        ) : (
+          <div
+            style={{
+              textAlign: "center",
+            }}
+          >
+            <h2>There is no posts yet.</h2>
+            <p>Start Adding some</p>
+          </div>
+        )}
       </main>
     </>
   );

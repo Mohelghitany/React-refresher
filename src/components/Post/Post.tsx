@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import styles from "./Post.module.css";
 
-interface postProps {
+export interface postProps {
   author: string;
   content: string;
 }

@@ -1,16 +1,21 @@
 import type { JSX } from "react";
 
 import styles from "./PostList.module.css";
+import { Post, type postProps } from "../Post/Post";
 
 interface postListProps {
-  posts: JSX.Element[];
+  posts: postProps[];
 }
 
 export const PostList = ({ posts }: postListProps): JSX.Element => {
   return (
     <ul className={styles.postList}>
-      {posts.map((_, index) => {
-        return <li>{posts[index]}</li>;
+      {posts.map((post, index) => {
+        return (
+          <li>
+            <Post key={index} author={post.author} content={post.content} />
+          </li>
+        );
       })}
     </ul>
   );
