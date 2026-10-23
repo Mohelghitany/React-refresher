@@ -6,6 +6,8 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 import { NewPost } from "./routes/NewPost/NewPost.tsx";
 import RootLayout from "./routes/RootLayout.tsx";
 import Posts from "./routes/Posts.tsx";
+import { action as newPostAction } from "./routes/NewPost/NewPostAction.ts";
+import { loader as PostsListLoader } from "./components/PostList/postListLoader.ts";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +17,11 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Posts />,
-        children: [{ path: "/create-post", element: <NewPost /> }],
+        loader: PostsListLoader,
+        hydrateFallbackElement: <div>Loading.....</div>,
+        children: [
+          { path: "/create-post", element: <NewPost />, action: newPostAction },
+        ],
       },
     ],
   },
