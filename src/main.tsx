@@ -8,6 +8,8 @@ import RootLayout from "./routes/RootLayout.tsx";
 import Posts from "./routes/Posts.tsx";
 import { action as newPostAction } from "./routes/NewPost/NewPostAction.ts";
 import { loader as PostsListLoader } from "./components/PostList/postListLoader.ts";
+import { PostDetails } from "./routes/PostDetails/PostDetails.tsx";
+import { loader as PostDetailsLoader } from "./routes/PostDetails/PostDetailsLoader.ts";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,11 @@ const router = createBrowserRouter([
         hydrateFallbackElement: <div>Loading.....</div>,
         children: [
           { path: "/create-post", element: <NewPost />, action: newPostAction },
+          {
+            path: "/details/:id",
+            element: <PostDetails />,
+            loader: PostDetailsLoader,
+          },
         ],
       },
     ],
