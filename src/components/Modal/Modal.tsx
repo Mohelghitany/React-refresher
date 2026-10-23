@@ -1,12 +1,16 @@
-import type { JSX, ReactElement, MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import type { JSX, ReactElement } from "react";
 
 import style from "./Modal.module.css";
 
 interface ModalProps {
   children: ReactElement;
-  onClose: (event: MouseEvent<HTMLDivElement>) => void;
 }
-export const Modal = ({ children, onClose }: ModalProps): JSX.Element => {
+export const Modal = ({ children }: ModalProps): JSX.Element => {
+  const navigate = useNavigate();
+  const onClose = () => {
+    navigate("..");
+  };
   return (
     <>
       <div className={style.backdrop} onClick={onClose} />

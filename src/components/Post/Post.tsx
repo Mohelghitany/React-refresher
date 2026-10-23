@@ -1,16 +1,23 @@
 import type { JSX } from "react";
 import styles from "./Post.module.css";
+import { useNavigate } from "react-router-dom";
 
 export interface postProps {
+  id: string;
   author: string;
   content: string;
 }
-export const Post = ({ author, content }: postProps): JSX.Element => {
+export const Post = ({ author, content, id }: postProps): JSX.Element => {
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    navigate(`/details/${id}`);
+  };
   return (
-    <li className={styles.post}>
+    <div className={styles.post} onClick={onClick}>
       <p className={styles.author}>{author}</p>
       <p className={styles.content}>{content}</p>
-    </li>
+    </div>
   );
 };
 export default Post;
